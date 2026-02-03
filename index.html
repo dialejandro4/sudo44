@@ -9,8 +9,9 @@
         :root {
             --color-fondo-app: #F36C21;
             --fuente-global: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            --color-texto-numeros: #1a73e8;
-            --color-primario: #F36C21; 
+            --color-texto-usuario: #F36C21; /* Color naranja para tus números */
+            --color-primario: #F36C21;
+            --rojo-error: #ffcccc; 
         }
 
         body, html { 
@@ -23,28 +24,28 @@
             width: 100%; height: 100dvh; display: flex; 
             flex-direction: column; align-items: center; position: absolute;
             background-color: var(--color-fondo-app); box-sizing: border-box;
-            background-size: contain; background-position: center; background-repeat: no-repeat;
+            /* FONDOS RESTAURADOS SEGÚN TU CÓDIGO */
+            background-size: contain; 
+            background-position: center; 
+            background-repeat: no-repeat;
         }
 
-        /* AJUSTE PARA POSICIÓN EN EL SEGUNDO DIVISOR (2/3 de la pantalla) */
         #pantalla-carga { 
             background-image: url('fondo.jpeg'); 
-            justify-content: flex-start; /* Alineamos al inicio para controlar el top */
+            justify-content: flex-start; 
         }
 
         .texto-carga-inferior {
             font-size: 1.1rem; font-weight: bold;
             color: white; text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
             animation: blink 1.5s infinite;
-            margin: 0;
-            position: absolute;
-            top: 66.6%; /* Línea divisoria entre el segundo y tercer tercio */
-            transform: translateY(-50%); /* Centra el texto sobre la línea */
+            position: absolute; 
+            top: 66.6%; /* Posición en la línea divisoria 2 */
+            transform: translateY(-50%);
         }
 
         @keyframes blink { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
 
-        /* ... El resto de los estilos se mantienen igual ... */
         #pantalla-menu { background-image: url('fondo 2.jpeg'); }
 
         .cabecera-titulo {
@@ -73,38 +74,34 @@
             width: 24px; height: 24px; background: white; color: var(--color-primario);
             display: flex; align-items: center; justify-content: center;
             border-radius: 5px; font-weight: bold; font-size: 0.75rem;
-            transition: all 0.3s;
         }
 
         .num-usado {
             background: rgba(0,0,0,0.4) !important; 
             color: rgba(255,255,255,0.4) !important;
             text-decoration: line-through;
-            transform: scale(0.9);
         }
 
         #tablero-contenedor { 
             display: grid; 
             grid-template-columns: repeat(4, 65px); 
             justify-content: center;
-            gap: 6px; 
-            padding: 12px; 
+            gap: 6px; padding: 12px; 
             background-color: rgba(0,0,0,0.1); 
-            border-radius: 15px; 
-            margin: 0 auto;
-            width: fit-content; 
+            border-radius: 15px; margin: 0 auto; width: fit-content; 
         }
         
         .celda-sudoku {
             width: 65px; height: 65px; background-color: white; 
             border: none; font-size: 1.4rem; font-weight: bold; 
-            color: var(--color-texto-numeros); border-radius: 10px; 
+            color: var(--color-texto-usuario); border-radius: 10px; 
             box-shadow: 0 4px 0px rgba(0,0,0,0.1);
-            -webkit-appearance: none; margin: 0;
-            text-align: center; 
+            text-align: center; -webkit-appearance: none; margin: 0;
             display: flex; align-items: center; justify-content: center;
-            padding: 0;
         }
+
+        /* Color de error */
+        .celda-error { background-color: var(--rojo-error) !important; }
 
         .separador-c { border-right: 3px solid rgba(255,255,255,0.5); }
         .separador-f { border-bottom: 3px solid rgba(255,255,255,0.5); }
@@ -114,14 +111,12 @@
             background: white; color: var(--color-primario);
             border-radius: 50%; width: 42px; height: 42px;
             display: flex; align-items: center; justify-content: center;
-            font-size: 1.2rem; border: 2px solid white; z-index: 1000;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
         .enlace-web {
             position: absolute; bottom: calc(75px + env(safe-area-inset-bottom)); 
             color: white; text-decoration: none; font-weight: bold; font-size: 0.85rem;
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.3); z-index: 100;
         }
 
         .banner-politico {
@@ -129,11 +124,6 @@
             background-image: url('banner.jpeg'); background-size: contain; 
             background-position: center top; background-repeat: no-repeat;
             background-color: #F37021; border-top: 2px solid white;
-        }
-
-        .menu-inferior { 
-            position: absolute; bottom: calc(115px + env(safe-area-inset-bottom)); 
-            width: 100%; display: flex; flex-direction: column; align-items: center;
         }
 
         button { 
@@ -146,9 +136,7 @@
 </head>
 <body onclick="iniciarMusica()">
 
-    <audio id="musicaFondo" loop>
-        <source src="Version 2 Final.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="musicaFondo" loop><source src="Version 2 Final.mp3" type="audio/mpeg"></audio>
 
     <div id="btn-compartir" onclick="compartirJuego()">🔗</div>
 
@@ -158,7 +146,7 @@
 
     <div id="pantalla-menu" class="pantalla" style="display: none;">
         <div class="cabecera-titulo"><h1 class="texto-sombra">SUDO44</h1></div>
-        <div class="menu-inferior">
+        <div style="position: absolute; bottom: calc(115px + env(safe-area-inset-bottom)); width: 100%; display: flex; flex-direction: column; align-items: center;">
             <button onclick="iniciarJuego()">Iniciar Juego</button>
             <select id="dificultad" style="width:85%; max-width:300px; padding:12px; border-radius:10px; margin-top:5px; font-weight:bold; border: 2px solid white; background: white;">
                 <option value="40">Nivel Fácil</option>
@@ -172,142 +160,151 @@
 
     <div id="pantalla-juego" class="pantalla" style="display: none;">
         <div class="cabecera-titulo"><h1 class="texto-sombra">SUDO44</h1></div>
+        
         <div class="instrucciones-juego">
-            <strong>REGLAS:</strong> Utiliza los números del <strong>1 al 20</strong> que te sean útiles sin repetir. <br>Cada cuadrante de 2x2 debe <strong>sumar 44</strong>.
+            <strong>REGLAS:</strong> Utiliza números del 1 al 20, sin repetir. <br>Cada cuadrante de 2×2 debe sumar 44.
         </div>
+
         <div id="lista-numeros" class="contenedor-numeros"></div>
         <div id="tablero-contenedor"></div>
+
         <div style="display:flex; gap:10px; width:90%; justify-content:center; margin-top: 10px;">
-            <button onclick="location.reload()" style="width:48%; font-size: 0.9rem; padding: 12px;">Menú</button>
-            <button onclick="limpiarUsuario()" style="width:48%; font-size: 0.9rem; padding: 12px;">Limpiar</button>
+            <button onclick="location.reload()" style="width:48%; font-size: 0.9rem;">Menú</button>
+            <button onclick="limpiarUsuario()" style="width:48%; font-size: 0.9rem;">Limpiar</button>
         </div>
+
         <a href="https://www.leonidasnamegomez.com" target="_blank" class="enlace-web">www.leonidasnamegomez.com</a>
         <div class="banner-politico"></div>
     </div>
 
     <script>
-        function compartirJuego() {
-            const url = window.location.href;
-            if (navigator.share) {
-                navigator.share({ title: 'SUDO44', text: '¡Te reto al SUDO44!', url: url });
-            } else {
-                navigator.clipboard.writeText(url).then(() => alert("¡Enlace copiado!"));
-            }
-        }
-
         let tableroFinal = [];
         let musicaIniciada = false;
 
         function iniciarMusica() {
             if (!musicaIniciada) {
-                const audio = document.getElementById('musicaFondo');
-                audio.play().catch(() => {});
+                document.getElementById('musicaFondo').play().catch(() => {});
                 musicaIniciada = true;
             }
         }
 
-        function actualizarListaNumeros() {
+        function actualizarUI() {
             const inputs = document.querySelectorAll('.celda-sudoku');
-            const usados = Array.from(inputs).map(i => parseInt(i.value)).filter(v => !isNaN(v));
-            const contenedor = document.getElementById('lista-numeros');
-            contenedor.innerHTML = '';
+            const vals = Array.from(inputs).map(i => parseInt(i.value) || 0);
+            
+            const contenedorLista = document.getElementById('lista-numeros');
+            contenedorLista.innerHTML = '';
             for (let i = 1; i <= 20; i++) {
                 const div = document.createElement('div');
-                div.className = 'num-disponible' + (usados.includes(i) ? ' num-usado' : '');
+                div.className = 'num-disponible' + (vals.includes(i) ? ' num-usado' : '');
                 div.innerText = i;
-                contenedor.appendChild(div);
+                contenedorLista.appendChild(div);
             }
-        }
 
-        function esValido(tablero, f, c, num) {
-            for (let i = 0; i < 4; i++) {
-                for (let j = 0; j < 4; j++) { if (tablero[i][j] === num) return false; }
-            }
-            const rF = f - f % 2, rC = c - c % 2;
-            let suma = 0, llenas = 0;
-            for (let i = rF; i < rF + 2; i++) {
-                for (let j = rC; j < rC + 2; j++) {
-                    let v = (i === f && j === c) ? num : tablero[i][j];
-                    if (v !== 0) { suma += v; llenas++; }
-                }
-            }
-            if (llenas === 4 && suma !== 44) return false;
-            if (suma > 44) return false;
-            return true;
-        }
+            inputs.forEach((input, idx) => {
+                if (input.readOnly) return;
+                const val = parseInt(input.value);
+                if (!val) { input.classList.remove('celda-error'); return; }
 
-        function solucionar(tablero) {
-            const numeros = Array.from({length: 20}, (_, i) => i + 1);
-            for (let f = 0; f < 4; f++) {
-                for (let c = 0; c < 4; c++) {
-                    if (tablero[f][c] === 0) {
-                        numeros.sort(() => Math.random() - 0.5);
-                        for (let n of numeros) {
-                            if (esValido(tablero, f, c, n)) {
-                                tablero[f][c] = n;
-                                if (solucionar(tablero)) return true;
-                                tablero[f][c] = 0;
-                            }
-                        }
-                        return false;
+                let error = false;
+                // Validar repetidos
+                if (vals.filter(v => v === val).length > 1) error = true;
+                
+                // Validar cuadrante 2x2
+                const f = Math.floor(idx / 4), c = idx % 4;
+                const rF = f - f % 2, rC = c - c % 2;
+                let suma = 0, llenas = 0;
+                for(let i=rF; i<rF+2; i++) {
+                    for(let j=rC; j<rC+2; j++) {
+                        let v = parseInt(inputs[i*4+j].value) || 0;
+                        if(v>0) { suma += v; llenas++; }
                     }
                 }
-            }
-            return true;
+                if ((llenas === 4 && suma !== 44) || suma > 44) error = true;
+
+                if (error) input.classList.add('celda-error');
+                else input.classList.remove('celda-error');
+            });
+
+            verificarVictoria(vals);
         }
 
         function iniciarJuego() {
             document.getElementById('pantalla-menu').style.display = 'none';
             document.getElementById('pantalla-juego').style.display = 'flex';
+            
             let t = Array.from({length: 4}, () => Array(4).fill(0));
-            solucionar(t);
-            tableroFinal = t.map(f => [...f]);
+            const solve = (tab) => {
+                const nums = Array.from({length: 20}, (_, i) => i + 1);
+                for (let f=0; f<4; f++) {
+                    for (let c=0; c<4; c++) {
+                        if (tab[f][c] === 0) {
+                            nums.sort(() => Math.random() - 0.5);
+                            for (let n of nums) {
+                                if (!tab.flat().includes(n)) {
+                                    tab[f][c] = n;
+                                    const rF = f-f%2, rC = c-c%2;
+                                    let s=0, l=0;
+                                    for(let i=rF; i<rF+2; i++) for(let j=rC; j<rC+2; j++) if(tab[i][j]>0){s+=tab[i][j]; l++;}
+                                    if (!(l===4 && s!==44) && s<=44 && solve(tab)) return true;
+                                    tab[f][c] = 0;
+                                }
+                            }
+                            return false;
+                        }
+                    }
+                }
+                return true;
+            };
+
+            solve(t);
+            tableroFinal = t.flat();
             const contenedor = document.getElementById('tablero-contenedor');
             contenedor.innerHTML = '';
+            
             const dif = document.getElementById('dificultad').value;
-            const vis = 16 - Math.floor(16 * (dif / 100));
-            let m = Array.from({length: 4}, () => Array(4).fill(false));
-            let count = 0;
-            while (count < vis) {
-                let f = Math.floor(Math.random()*4), c = Math.floor(Math.random()*4);
-                if (!m[f][c]) { m[f][c] = true; count++; }
-            }
+            const visibles = 16 - Math.floor(16 * (dif / 100));
+            let indices = Array.from({length: 16}, (_, i) => i).sort(() => Math.random() - 0.5).slice(0, visibles);
+
             for (let i = 0; i < 16; i++) {
-                const f = Math.floor(i / 4), c = i % 4;
                 const input = document.createElement('input');
                 input.type = 'number';
                 input.inputMode = "numeric";
                 input.className = 'celda-sudoku';
-                if (c === 1) input.classList.add('separador-c');
-                if (f === 1) input.classList.add('separador-f');
-                if (m[f][c]) {
-                    input.value = tableroFinal[f][c];
+                if (i % 4 === 1) input.classList.add('separador-c');
+                if (Math.floor(i / 4) === 1) input.classList.add('separador-f');
+                
+                if (indices.includes(i)) {
+                    input.value = tableroFinal[i];
                     input.readOnly = true;
                     input.style.backgroundColor = "#EF6A1F"; 
                     input.style.color = "white"; 
                 }
-                input.oninput = () => { 
-                    if(parseInt(input.value) > 20) input.value = 20;
-                    actualizarListaNumeros(); 
-                    verificarVictoria(); 
+                input.oninput = () => {
+                    if (parseInt(input.value) > 20) input.value = 20;
+                    actualizarUI();
                 };
                 contenedor.appendChild(input);
             }
-            actualizarListaNumeros();
+            actualizarUI();
         }
 
-        function verificarVictoria() {
-            const inputs = document.querySelectorAll('.celda-sudoku');
-            let vals = Array.from(inputs).map(i => parseInt(i.value) || 0);
+        function verificarVictoria(vals) {
             const s = [vals[0]+vals[1]+vals[4]+vals[5], vals[2]+vals[3]+vals[6]+vals[7], vals[8]+vals[9]+vals[12]+vals[13], vals[10]+vals[11]+vals[14]+vals[15]];
-            if (vals.every(v => v > 0) && s.every(x => x === 44) && new Set(vals).size === 16) {
+            if (vals.every(v => v > 0) && s.every(x => x === 44) && new Set(vals.filter(v => v>0)).size === 16) {
                 alert("¡SUDO44 Completado! Colombia gana con Leonidas Name.");
             }
         }
 
         function limpiarUsuario() {
             document.querySelectorAll('.celda-sudoku').forEach(i => { if(!i.readOnly) i.value = ''; });
-            actualizarListaNumeros();
+            actualizarUI();
+        }
+
+        function compartirJuego() {
+            const url = window.location.href;
+            if (navigator.share) navigator.share({ title: 'SUDO44', url: url });
+            else { navigator.clipboard.writeText(url); alert("Enlace copiado"); }
         }
 
         setTimeout(() => { 
