@@ -14,111 +14,85 @@
         }
 
         body, html { 
-            margin: 0; padding: 0; 
-            height: 100dvh; width: 100%; 
+            margin: 0; padding: 0; height: 100dvh; width: 100%; 
             overflow: hidden; font-family: var(--fuente-global); 
             background-color: var(--color-fondo-app); 
         }
 
         .pantalla { 
-            width: 100%; height: 100dvh; 
-            display: flex; flex-direction: column; align-items: center; 
-            position: absolute; top: 0; left: 0;
-            background-color: var(--color-fondo-app);
-            box-sizing: border-box;
-            background-size: contain;
-            background-position: center;
-            background-repeat: no-repeat;
+            width: 100%; height: 100dvh; display: flex; 
+            flex-direction: column; align-items: center; position: absolute;
+            background-color: var(--color-fondo-app); box-sizing: border-box;
+            background-size: contain; background-position: center; background-repeat: no-repeat;
         }
 
-        /* PANTALLA DE CARGA CON FONDO COMPLETO */
-        #pantalla-carga {
-            background-image: url('fondo.jpeg');
-            justify-content: flex-end;
-        }
-
-        /* PANTALLA DE MENÚ CON FONDO 2 COMPLETO */
-        #pantalla-menu {
-            background-image: url('fondo 2.jpeg');
-        }
+        /* FONDOS COMO LOS TENÍAS ANTES */
+        #pantalla-carga { background-image: url('fondo.jpeg'); justify-content: flex-end; }
+        #pantalla-menu { background-image: url('fondo 2.jpeg'); }
 
         .texto-carga-inferior {
-            margin-bottom: 80px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            letter-spacing: 2px;
-            color: white;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+            margin-bottom: 80px; font-size: 1.1rem; font-weight: bold;
+            color: white; text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
             animation: blink 1.5s infinite;
         }
 
-        @keyframes blink {
-            0% { opacity: 0.4; }
-            50% { opacity: 1; }
-            100% { opacity: 0.4; }
-        }
+        @keyframes blink { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
 
         .cabecera-titulo {
             width: 100%; background-color: var(--color-fondo-app);
             padding: env(safe-area-inset-top, 10px) 0 10px 0; 
-            text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            z-index: 110;
+            text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); z-index: 10;
         }
 
         .texto-sombra {
             text-shadow: 2px 2px 10px rgba(0,0,0,0.9);
-            font-weight: 800; text-align: center; color: white; margin: 0;
-            font-size: 1.8rem;
+            font-weight: 800; color: white; margin: 0; font-size: 1.8rem;
         }
 
         .instrucciones-juego {
-            color: white; text-align: center; width: 90%;
-            margin: 5px 0; font-size: 0.8rem; line-height: 1.1;
+            color: white; text-align: center; width: 85%;
+            margin: 8px 0; font-size: 0.8rem; line-height: 1.2;
         }
 
         .contenedor-numeros {
             display: flex; flex-wrap: wrap; justify-content: center;
-            gap: 3px; padding: 6px; background: rgba(255,255,255,0.2);
-            border-radius: 12px; margin: 5px auto; width: 90%;
-            border: 1px solid white;
+            gap: 4px; padding: 6px; background: rgba(255,255,255,0.2);
+            border-radius: 12px; margin: 5px auto; width: 85%; border: 1px solid white;
         }
 
         .num-disponible {
-            width: 25px; height: 25px; background: white;
-            color: var(--color-primario); display: flex;
-            align-items: center; justify-content: center;
-            border-radius: 5px; font-weight: bold; font-size: 0.75rem;
+            width: 22px; height: 22px; background: white; color: var(--color-primario);
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 5px; font-weight: bold; font-size: 0.7rem;
         }
 
-        .num-usado {
-            background: rgba(0,0,0,0.4); color: rgba(255,255,255,0.4);
-            text-decoration: line-through; transform: scale(0.8);
-        }
-
-        /* TABLERO FLEXIBLE PARA IPHONE */
+        /* TABLERO: TAMAÑO AJUSTADO PARA NO TRASLAPAR */
         #tablero-contenedor { 
-            display: grid; 
-            grid-template-columns: repeat(4, min(18vw, 60px)); 
-            gap: 5px; 
-            padding: 8px; 
-            background-color: rgba(0,0,0,0.1); 
-            border-radius: 15px; 
-            margin: 5px auto; 
+            display: grid; grid-template-columns: repeat(4, 1fr); 
+            gap: 5px; padding: 10px; background-color: rgba(0,0,0,0.1); 
+            border-radius: 15px; margin: 5px auto; width: 270px; 
         }
         
         .celda-sudoku {
-            width: 100%; 
-            aspect-ratio: 1 / 1;
-            background-color: white; 
+            width: 60px; height: 60px; background-color: white; 
             border: none; text-align: center; font-size: 1.3rem; 
             font-weight: bold; color: var(--color-texto-numeros); 
-            outline: none; border-radius: 8px;
-            box-shadow: 0 3px 0px rgba(0,0,0,0.1);
-            -webkit-appearance: none;
+            border-radius: 8px; box-shadow: 0 3px 0px rgba(0,0,0,0.1);
+            -webkit-appearance: none; margin: 0;
         }
 
-        .separador-c { border-right: 3px solid rgba(255,255,255,0.5) !important; }
-        .separador-f { border-bottom: 3px solid rgba(255,255,255,0.5) !important; }
+        .separador-c { border-right: 3px solid rgba(255,255,255,0.5); }
+        .separador-f { border-bottom: 3px solid rgba(255,255,255,0.5); }
+
+        /* BOTÓN COMPARTIR REUBICADO */
+        #btn-compartir {
+            position: fixed; top: 10px; right: 10px; 
+            background: white; color: var(--color-primario);
+            border-radius: 50%; width: 38px; height: 38px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem; border: 2px solid white; z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
 
         .enlace-web {
             position: absolute; bottom: calc(75px + env(safe-area-inset-bottom)); 
@@ -127,15 +101,14 @@
         }
 
         .banner-politico {
-            position: absolute; bottom: 0; width: 100%; 
-            height: calc(70px + env(safe-area-inset-bottom)); 
+            position: absolute; bottom: 0; width: 100%; height: calc(70px + env(safe-area-inset-bottom)); 
             background-image: url('banner.jpeg'); background-size: contain; 
             background-position: center top; background-repeat: no-repeat;
-            background-color: #F37021; border-top: 1px solid white;
+            background-color: #F37021; border-top: 2px solid white;
         }
 
         .menu-inferior { 
-            position: absolute; bottom: calc(115px + env(safe-area-inset-bottom)); 
+            position: absolute; bottom: calc(110px + env(safe-area-inset-bottom)); 
             width: 100%; display: flex; flex-direction: column; align-items: center;
         }
 
@@ -145,14 +118,6 @@
             font-size: 1rem; font-weight: 700; border: 2px solid white; 
             border-radius: 12px; text-transform: uppercase;
         }
-
-        #mensaje-victoria {
-            display: none; position: fixed; top: 50%; left: 50%; 
-            transform: translate(-50%, -50%); background: white; 
-            color: var(--color-primario); padding: 30px 20px; border-radius: 30px; 
-            text-align: center; z-index: 2000; box-shadow: 0 0 100px rgba(0,0,0,0.8); 
-            width: 85%; border: 8px solid #333;
-        }
     </style>
 </head>
 <body onclick="iniciarMusica()">
@@ -161,7 +126,7 @@
         <source src="Version 2 Final.mp3" type="audio/mpeg">
     </audio>
 
-    <div id="btn-compartir" style="position: fixed; top: calc(65px + env(safe-area-inset-top)); right: 15px; background: white; color: var(--color-primario); border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; border: 2px solid white; z-index: 1000;" onclick="compartirJuego()">🔗</div>
+    <div id="btn-compartir" onclick="compartirJuego()">🔗</div>
 
     <div id="pantalla-carga" class="pantalla">
         <p class="texto-carga-inferior">CARGANDO EL RETO...</p>
@@ -176,42 +141,35 @@
                 <option value="60">Nivel Medio</option>
                 <option value="80">Nivel Difícil</option>
             </select>
-            <button onclick="compartirJuego()" style="background: white; color: var(--color-primario); font-size: 0.8rem; padding: 6px; margin-top: 8px;">Compartir Juego</button>
         </div>
         <a href="https://www.leonidasnamegomez.com" target="_blank" class="enlace-web">www.leonidasnamegomez.com</a>
         <div class="banner-politico"></div>
     </div>
 
     <div id="pantalla-juego" class="pantalla" style="display: none;">
-        <div class="cabecera-titulo"><h1 class="texto-sombra" style="font-size: 1.3rem;">SUDO44</h1></div>
+        <div class="cabecera-titulo"><h1 class="texto-sombra">SUDO44</h1></div>
+        
         <div class="instrucciones-juego">
-            <strong>REGLAS:</strong> Números del <strong>1 al 20</strong> sin repetir. <br>Cada cuadrante de 2x2 debe <strong>sumar 44</strong>.
+            <strong>REGLAS:</strong> Del <strong>1 al 20</strong> sin repetir. <br>Cada cuadrante de 2x2 debe <strong>sumar 44</strong>.
         </div>
+
         <div id="lista-numeros" class="contenedor-numeros"></div>
         <div id="tablero-contenedor"></div>
-        <div style="display:flex; gap:8px; width:85%; justify-content:center; margin-bottom: 5px;">
-            <button onclick="location.reload()" style="width:48%; font-size: 0.8rem; padding: 8px;">Menú</button>
-            <button onclick="limpiarUsuario()" style="width:48%; font-size: 0.8rem; padding: 8px;">Limpiar</button>
+
+        <div style="display:flex; gap:10px; width:90%; justify-content:center; margin-bottom: 110px;">
+            <button onclick="location.reload()" style="width:48%; font-size: 0.8rem; padding: 10px;">Menú</button>
+            <button onclick="limpiarUsuario()" style="width:48%; font-size: 0.8rem; padding: 10px;">Limpiar</button>
         </div>
+
         <a href="https://www.leonidasnamegomez.com" target="_blank" class="enlace-web">www.leonidasnamegomez.com</a>
         <div class="banner-politico"></div>
-    </div>
-
-    <div id="mensaje-victoria">
-        <h2>✨ ¡LOGRADO! ✨</h2>
-        <p>Colombia gana con Leonidas Name.</p>
-        <button onclick="compartirJuego()" style="width: 100%; font-size: 0.85rem;">Retar a un amigo</button>
     </div>
 
     <script>
         function compartirJuego() {
             const url = window.location.href;
             if (navigator.share) {
-                navigator.share({
-                    title: 'SUDO44 - Reto Leonidas Name',
-                    text: '¡Te reto a completar el SUDO44! ¿Puedes sumar 44 en cada cuadrante?',
-                    url: url
-                });
+                navigator.share({ title: 'SUDO44', text: '¡Te reto al SUDO44!', url: url });
             } else {
                 navigator.clipboard.writeText(url).then(() => alert("¡Enlace copiado!"));
             }
@@ -322,7 +280,7 @@
             let vals = Array.from(inputs).map(i => parseInt(i.value) || 0);
             const s = [vals[0]+vals[1]+vals[4]+vals[5], vals[2]+vals[3]+vals[6]+vals[7], vals[8]+vals[9]+vals[12]+vals[13], vals[10]+vals[11]+vals[14]+vals[15]];
             if (vals.every(v => v > 0) && s.every(x => x === 44) && new Set(vals).size === 16) {
-                document.getElementById('mensaje-victoria').style.display = 'block';
+                alert("¡SUDO44 Completado!");
             }
         }
 
