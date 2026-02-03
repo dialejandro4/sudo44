@@ -26,16 +26,26 @@
             background-size: contain; background-position: center; background-repeat: no-repeat;
         }
 
-        #pantalla-carga { background-image: url('fondo.jpeg'); justify-content: flex-end; }
-        #pantalla-menu { background-image: url('fondo 2.jpeg'); }
+        /* AJUSTE PARA POSICIÓN EN EL SEGUNDO DIVISOR (2/3 de la pantalla) */
+        #pantalla-carga { 
+            background-image: url('fondo.jpeg'); 
+            justify-content: flex-start; /* Alineamos al inicio para controlar el top */
+        }
 
         .texto-carga-inferior {
-            margin-bottom: 80px; font-size: 1.1rem; font-weight: bold;
+            font-size: 1.1rem; font-weight: bold;
             color: white; text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
             animation: blink 1.5s infinite;
+            margin: 0;
+            position: absolute;
+            top: 66.6%; /* Línea divisoria entre el segundo y tercer tercio */
+            transform: translateY(-50%); /* Centra el texto sobre la línea */
         }
 
         @keyframes blink { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+
+        /* ... El resto de los estilos se mantienen igual ... */
+        #pantalla-menu { background-image: url('fondo 2.jpeg'); }
 
         .cabecera-titulo {
             width: 100%; background-color: var(--color-fondo-app);
@@ -59,7 +69,6 @@
             border-radius: 12px; margin: 0 auto 10px auto; width: 85%; border: 1px solid white;
         }
 
-        /* ESTILO DE NÚMEROS QUE SE TACHAN */
         .num-disponible {
             width: 24px; height: 24px; background: white; color: var(--color-primario);
             display: flex; align-items: center; justify-content: center;
@@ -92,7 +101,6 @@
             color: var(--color-texto-numeros); border-radius: 10px; 
             box-shadow: 0 4px 0px rgba(0,0,0,0.1);
             -webkit-appearance: none; margin: 0;
-            /* CENTRADO PERFECTO DEL NÚMERO */
             text-align: center; 
             display: flex; align-items: center; justify-content: center;
             padding: 0;
@@ -164,19 +172,15 @@
 
     <div id="pantalla-juego" class="pantalla" style="display: none;">
         <div class="cabecera-titulo"><h1 class="texto-sombra">SUDO44</h1></div>
-        
         <div class="instrucciones-juego">
             <strong>REGLAS:</strong> Utiliza los números del <strong>1 al 20</strong> que te sean útiles sin repetir. <br>Cada cuadrante de 2x2 debe <strong>sumar 44</strong>.
         </div>
-
         <div id="lista-numeros" class="contenedor-numeros"></div>
         <div id="tablero-contenedor"></div>
-
         <div style="display:flex; gap:10px; width:90%; justify-content:center; margin-top: 10px;">
             <button onclick="location.reload()" style="width:48%; font-size: 0.9rem; padding: 12px;">Menú</button>
             <button onclick="limpiarUsuario()" style="width:48%; font-size: 0.9rem; padding: 12px;">Limpiar</button>
         </div>
-
         <a href="https://www.leonidasnamegomez.com" target="_blank" class="enlace-web">www.leonidasnamegomez.com</a>
         <div class="banner-politico"></div>
     </div>
