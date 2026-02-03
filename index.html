@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SUDO44 - Leonidas Name</title>
+    
+    <style>
+        :root {
+            --color-fondo-app: #F36C21;
+            --fuente-global: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --color-texto-numeros: #1a73e8;
+            --color-primario: #F36C21; 
+        }
+
+        body, html { 
+            margin: 0; padding: 0; height: 100%; width: 100%; 
+            overflow: hidden; font-family: var(--fuente-global); 
+            background-color: var(--color-fondo-app); 
+        }
+
+        .pantalla { 
+            width: 100vw; height: 100vh; display: flex; 
+            flex-direction: column; align-items: center; position: absolute;
+            background-color: var(--color-fondo-app);
+        }
+
+        /* MENÚ: IMAGEN AL 25% */
+        #pantalla-menu {
+            background-image: url('fondo 2.jpeg');
+            background-size: 25% auto;
+            background-position: center 35%; 
+            background-repeat: no-repeat;
+        }
+
+        .cabecera-titulo {
+            width: 100%; background-color: var(--color-fondo-app);
+            padding: 12px 0; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            z-index: 110;
+        }
+
+        .texto-sombra {
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.9);
+            font-weight: 800; text-align: center; color: white; margin: 0;
+        }
+
+        /* REGLAS E INSTRUCCIONES */
+        .instrucciones-juego {
+            color: white; text-align: center; width: 85%;
+            margin: 10px 0 5px 0; font-size: 0.85rem; line-height: 1.2;
+        }
+
+        .contenedor-numeros {
+            display: flex; flex-wrap: wrap; justify-content: center;
+            gap: 4px; padding: 8px; background: rgba(255,255,255,0.2);
+            border-radius: 12px; margin: 5px auto; width: 85%;
+            border: 1px solid white;
+        }
+
+        .num-disponible {
+            width: 28px; height: 28px; background: white;
+            color: var(--color-primario); display: flex;
+            align-items: center; justify-content: center;
+            border-radius: 6px; font-weight: bold; font-size: 0.8rem;
+        }
+
+        .num-usado {
+            background: rgba(0,0,0,0.4); color: rgba(255,255,255,0.4);
+            text-decoration: line-through; transform: scale(0.85);
+        }
+
+        /* TABLERO 4x4 CON BORDES REDONDEADOS */
+        #tablero-contenedor { 
+            display: grid; grid-template-columns: repeat(4, 55px); 
+            gap: 6px; padding: 10px; background-color: rgba(0,0,0,0.1); 
+            border-radius: 15px; margin: 5px auto; 
+        }
+        
+        .celda-sudoku {
+            width: 55px; height: 55px; background-color: white; 
+            border: none; text-align: center; font-size: 1.4rem; 
+            font-weight: bold; color: var(--color-texto-numeros); 
+            outline: none; border-radius: 10px;
+            box-shadow: 0 4px 0px rgba(0,0,0,0.1);
+        }
+
+        .separador-c { border-right: 3px solid rgba(255,255,255,0.5) !important; margin-right: 4px; }
+        .separador-f { border-bottom: 3px solid rgba(255,255,255,0.5) !important; margin-bottom: 4px; }
+
+        .enlace-web {
+            position: absolute; bottom: 75px; color: white;
+            text-decoration: none; font-weight: bold; font-size: 0.85rem;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.3); z-index: 100;
+        }
+
+        .banner-politico {
+            position: absolute; bottom: 0; width: 100%; height: 70px; 
+            background-image: url('banner.jpeg'); background-size: contain; 
+            background-position: center; background-repeat: no-repeat;
+            background-color: #F37021; border-top: 2px solid white;
+        }
+
+        .menu-inferior { 
+            position: absolute; bottom: 110px; width: 100%; 
+            display: flex; flex-direction: column; align-items: center;
+        }
+
+        button { 
+            width: 85%; max-width: 300px; padding: 14px; margin: 5px 0; 
+            background-color: var(--color-primario); color: white; 
+            font-size: 1.1rem; font-weight: 700; border: 2px solid white; 
+            border-radius: 12px; text-transform: uppercase;
+        }
+
+        /* VICTORIA GIGANTE */
+        #mensaje-victoria {
+            display: none; position: fixed; top: 50%; left: 50%; 
+            transform: translate(-50%, -50%); background: white; 
+            color: var(--color-primario); padding: 40px 20px; border-radius: 40px; 
+            text-align: center; z-index: 2000; box-shadow: 0 0 150px rgba(0,0,0,0.9); 
+            width: 90%; border: 10px solid #333;
+        }
+
+        #mensaje-victoria h2 { font-size: 2.8rem; margin: 0 0 15px 0; font-weight: 900; }
+        #mensaje-victoria p { font-size: 1.5rem; font-weight: bold; color: #333; margin-bottom: 20px; }
+
+        /* Botón Compartir Flotante */
+        #btn-compartir {
+            position: fixed; top: 70px; right: 10px; background: white;
+            color: var(--color-primario); border-radius: 50%; width: 45px; height: 45px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; border: 2px solid white; z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body onclick="iniciarMusica()">
+
+    <audio id="musicaFondo" loop>
+        <source src="Version 2 Final.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="btn-compartir" onclick="compartirJuego()">🔗</div>
+
+    <div id="pantalla-carga" class="pantalla">
+        <div class="cabecera-titulo"><h1 class="texto-sombra">SUDO44</h1></div>
+        <div style="flex-grow:1; display:flex; align-items:center; justify-content:center; background-image:url('fondo.jpeg'); background-size:contain; background-repeat:no-repeat; width:100%; background-position:center;">
+            <p class="texto-sombra">CARGANDO EL RETO...</p>
+        </div>
+    </div>
+
+    <div id="pantalla-menu" class="pantalla" style="display: none;">
+        <div class="cabecera-titulo" style="position: absolute; top:0;"><h1 class="texto-sombra">SUDO44</h1></div>
+        <div class="menu-inferior">
+            <button onclick="iniciarJuego()">Nuevo Reto</button>
+            <select id="dificultad" style="width:85%; max-width:300px; padding:12px; border-radius:10px; margin-top:5px; font-weight:bold; border: 2px solid white;">
+                <option value="40">Nivel Fácil</option>
+                <option value="60">Nivel Medio</option>
+                <option value="80">Nivel Difícil</option>
+            </select>
+            <button onclick="compartirJuego()" style="background: white; color: var(--color-primario); font-size: 0.8rem; padding: 8px; margin-top: 10px;">Compartir Juego</button>
+        </div>
+        <a href="https://www.leonidasnamegomez.com" target="_blank" class="enlace-web">www.leonidasnamegomez.com</a>
+        <div class="banner-politico"></div>
+    </div>
+
+    <div id="pantalla-juego" class="pantalla" style="display: none;">
+        <div class="cabecera-titulo"><h1 class="texto-sombra" style="font-size: 1.4rem;">SUDO44</h1></div>
+        
+        <div class="instrucciones-juego">
+            <strong>REGLAS:</strong> Ubica números del <strong>1 al 20</strong> sin repetir. 
+            Cada cuadrante de 2x2 debe <strong>sumar 44</strong>.
+        </div>
+
+        <div id="lista-numeros" class="contenedor-numeros"></div>
+        <div id="tablero-contenedor"></div>
+
+        <div style="display:flex; gap:10px; width:90%; max-width:400px; justify-content:center; margin-bottom: 110px;">
+            <button onclick="location.reload()" style="width:48%; font-size: 0.9rem; padding: 10px;">Menú</button>
+            <button onclick="limpiarUsuario()" style="width:48%; font-size: 0.9rem; padding: 10px;">Limpiar</button>
+        </div>
+
+        <a href="https://www.leonidasnamegomez.com" target="_blank" class="enlace-web">www.leonidasnamegomez.com</a>
+        <div class="banner-politico"></div>
+    </div>
+
+    <div id="mensaje-victoria">
+        <h2>✨ ¡LOGRADO! ✨</h2>
+        <p>Colombia gana con Leonidas Name.</p>
+        <button onclick="compartirJuego()" style="width: 100%; font-size: 0.9rem;">Retar a un amigo</button>
+    </div>
+
+    <script>
+        function compartirJuego() {
+            const url = window.location.href;
+            if (navigator.share) {
+                navigator.share({
+                    title: 'SUDO44 - Reto Leonidas Name',
+                    text: '¡Te reto a completar el SUDO44! ¿Puedes sumar 44 en cada cuadrante?',
+                    url: url
+                });
+            } else {
+                navigator.clipboard.writeText(url);
+                alert("¡Enlace copiado! Envíalo a tus amigos.");
+            }
+        }
+
+        let tableroFinal = [];
+        let musicaIniciada = false;
+
+        function iniciarMusica() {
+            if (!musicaIniciada) {
+                document.getElementById('musicaFondo').play().catch(() => {});
+                musicaIniciada = true;
+            }
+        }
+
+        function actualizarListaNumeros() {
+            const inputs = document.querySelectorAll('.celda-sudoku');
+            const usados = Array.from(inputs).map(i => parseInt(i.value)).filter(v => !isNaN(v));
+            const contenedor = document.getElementById('lista-numeros');
+            contenedor.innerHTML = '';
+            for (let i = 1; i <= 20; i++) {
+                const div = document.createElement('div');
+                div.className = 'num-disponible' + (usados.includes(i) ? ' num-usado' : '');
+                div.innerText = i;
+                contenedor.appendChild(div);
+            }
+        }
+
+        function esValido(tablero, f, c, num) {
+            for (let i = 0; i < 4; i++) {
+                for (let j = 0; j < 4; j++) { if (tablero[i][j] === num) return false; }
+            }
+            const rF = f - f % 2, rC = c - c % 2;
+            let suma = 0, llenas = 0;
+            for (let i = rF; i < rF + 2; i++) {
+                for (let j = rC; j < rC + 2; j++) {
+                    let v = (i === f && j === c) ? num : tablero[i][j];
+                    if (v !== 0) { suma += v; llenas++; }
+                }
+            }
+            if (llenas === 4 && suma !== 44) return false;
+            if (suma > 44) return false;
+            return true;
+        }
+
+        function solucionar(tablero) {
+            const numeros = Array.from({length: 20}, (_, i) => i + 1);
+            for (let f = 0; f < 4; f++) {
+                for (let c = 0; c < 4; c++) {
+                    if (tablero[f][c] === 0) {
+                        numeros.sort(() => Math.random() - 0.5);
+                        for (let n of numeros) {
+                            if (esValido(tablero, f, c, n)) {
+                                tablero[f][c] = n;
+                                if (solucionar(tablero)) return true;
+                                tablero[f][c] = 0;
+                            }
+                        }
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        function iniciarJuego() {
+            document.getElementById('pantalla-menu').style.display = 'none';
+            document.getElementById('pantalla-juego').style.display = 'flex';
+            let t = Array.from({length: 4}, () => Array(4).fill(0));
+            solucionar(t);
+            tableroFinal = t.map(f => [...f]);
+            const contenedor = document.getElementById('tablero-contenedor');
+            contenedor.innerHTML = '';
+            const dif = document.getElementById('dificultad').value;
+            const vis = 16 - Math.floor(16 * (dif / 100));
+            let m = Array.from({length: 4}, () => Array(4).fill(false));
+            let count = 0;
+            while (count < vis) {
+                let f = Math.floor(Math.random()*4), c = Math.floor(Math.random()*4);
+                if (!m[f][c]) { m[f][c] = true; count++; }
+            }
+            for (let i = 0; i < 16; i++) {
+                const f = Math.floor(i / 4), c = i % 4;
+                const input = document.createElement('input');
+                input.type = 'number';
+                input.inputMode = "numeric";
+                input.className = 'celda-sudoku';
+                if (c === 1) input.classList.add('separador-c');
+                if (f === 1) input.classList.add('separador-f');
+                if (m[f][c]) {
+                    input.value = tableroFinal[f][c];
+                    input.readOnly = true;
+                    input.style.backgroundColor = "#EF6A1F"; 
+                    input.style.color = "white"; 
+                }
+                input.oninput = () => { 
+                    if(parseInt(input.value) > 20) input.value = 20;
+                    actualizarListaNumeros(); 
+                    verificarVictoria(); 
+                };
+                contenedor.appendChild(input);
+            }
+            actualizarListaNumeros();
+        }
+
+        function verificarVictoria() {
+            const inputs = document.querySelectorAll('.celda-sudoku');
+            let vals = Array.from(inputs).map(i => parseInt(i.value) || 0);
+            const s = [vals[0]+vals[1]+vals[4]+vals[5], vals[2]+vals[3]+vals[6]+vals[7], vals[8]+vals[9]+vals[12]+vals[13], vals[10]+vals[11]+vals[14]+vals[15]];
+            if (vals.every(v => v > 0) && s.every(x => x === 44) && new Set(vals).size === 16) {
+                document.getElementById('mensaje-victoria').style.display = 'block';
+            }
+        }
+
+        function limpiarUsuario() {
+            document.querySelectorAll('.celda-sudoku').forEach(i => { if(!i.readOnly) i.value = ''; });
+            actualizarListaNumeros();
+        }
+
+        setTimeout(() => { 
+            document.getElementById('pantalla-carga').style.display = 'none'; 
+            document.getElementById('pantalla-menu').style.display = 'flex'; 
+        }, 3000);
+    </script>
+</body>
+</html>
