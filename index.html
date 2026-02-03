@@ -59,10 +59,19 @@
             border-radius: 12px; margin: 0 auto 10px auto; width: 85%; border: 1px solid white;
         }
 
+        /* ESTILO DE NÚMEROS QUE SE TACHAN */
         .num-disponible {
             width: 24px; height: 24px; background: white; color: var(--color-primario);
             display: flex; align-items: center; justify-content: center;
             border-radius: 5px; font-weight: bold; font-size: 0.75rem;
+            transition: all 0.3s;
+        }
+
+        .num-usado {
+            background: rgba(0,0,0,0.4) !important; 
+            color: rgba(255,255,255,0.4) !important;
+            text-decoration: line-through;
+            transform: scale(0.9);
         }
 
         #tablero-contenedor { 
@@ -79,10 +88,14 @@
         
         .celda-sudoku {
             width: 65px; height: 65px; background-color: white; 
-            border: none; text-align: center; font-size: 1.4rem; 
-            font-weight: bold; color: var(--color-texto-numeros); 
-            border-radius: 10px; box-shadow: 0 4px 0px rgba(0,0,0,0.1);
+            border: none; font-size: 1.4rem; font-weight: bold; 
+            color: var(--color-texto-numeros); border-radius: 10px; 
+            box-shadow: 0 4px 0px rgba(0,0,0,0.1);
             -webkit-appearance: none; margin: 0;
+            /* CENTRADO PERFECTO DEL NÚMERO */
+            text-align: center; 
+            display: flex; align-items: center; justify-content: center;
+            padding: 0;
         }
 
         .separador-c { border-right: 3px solid rgba(255,255,255,0.5); }
