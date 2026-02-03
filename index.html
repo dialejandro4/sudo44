@@ -26,7 +26,6 @@
             background-size: contain; background-position: center; background-repeat: no-repeat;
         }
 
-        /* FONDOS COMO LOS TENÍAS ANTES */
         #pantalla-carga { background-image: url('fondo.jpeg'); justify-content: flex-end; }
         #pantalla-menu { background-image: url('fondo 2.jpeg'); }
 
@@ -50,53 +49,57 @@
         }
 
         .instrucciones-juego {
-            color: white; text-align: center; width: 85%;
-            margin: 8px 0; font-size: 0.8rem; line-height: 1.2;
+            color: white; text-align: center; width: 90%;
+            margin: 12px 0; font-size: 0.85rem; line-height: 1.3;
         }
 
         .contenedor-numeros {
             display: flex; flex-wrap: wrap; justify-content: center;
-            gap: 4px; padding: 6px; background: rgba(255,255,255,0.2);
-            border-radius: 12px; margin: 5px auto; width: 85%; border: 1px solid white;
+            gap: 4px; padding: 8px; background: rgba(255,255,255,0.2);
+            border-radius: 12px; margin: 0 auto 10px auto; width: 85%; border: 1px solid white;
         }
 
         .num-disponible {
-            width: 22px; height: 22px; background: white; color: var(--color-primario);
+            width: 24px; height: 24px; background: white; color: var(--color-primario);
             display: flex; align-items: center; justify-content: center;
-            border-radius: 5px; font-weight: bold; font-size: 0.7rem;
+            border-radius: 5px; font-weight: bold; font-size: 0.75rem;
         }
 
-        /* TABLERO: TAMAÑO AJUSTADO PARA NO TRASLAPAR */
         #tablero-contenedor { 
-            display: grid; grid-template-columns: repeat(4, 1fr); 
-            gap: 5px; padding: 10px; background-color: rgba(0,0,0,0.1); 
-            border-radius: 15px; margin: 5px auto; width: 270px; 
+            display: grid; 
+            grid-template-columns: repeat(4, 65px); 
+            justify-content: center;
+            gap: 6px; 
+            padding: 12px; 
+            background-color: rgba(0,0,0,0.1); 
+            border-radius: 15px; 
+            margin: 0 auto;
+            width: fit-content; 
         }
         
         .celda-sudoku {
-            width: 60px; height: 60px; background-color: white; 
-            border: none; text-align: center; font-size: 1.3rem; 
+            width: 65px; height: 65px; background-color: white; 
+            border: none; text-align: center; font-size: 1.4rem; 
             font-weight: bold; color: var(--color-texto-numeros); 
-            border-radius: 8px; box-shadow: 0 3px 0px rgba(0,0,0,0.1);
+            border-radius: 10px; box-shadow: 0 4px 0px rgba(0,0,0,0.1);
             -webkit-appearance: none; margin: 0;
         }
 
         .separador-c { border-right: 3px solid rgba(255,255,255,0.5); }
         .separador-f { border-bottom: 3px solid rgba(255,255,255,0.5); }
 
-        /* BOTÓN COMPARTIR REUBICADO */
         #btn-compartir {
-            position: fixed; top: 10px; right: 10px; 
+            position: fixed; top: 15px; right: 15px; 
             background: white; color: var(--color-primario);
-            border-radius: 50%; width: 38px; height: 38px;
+            border-radius: 50%; width: 42px; height: 42px;
             display: flex; align-items: center; justify-content: center;
-            font-size: 1.1rem; border: 2px solid white; z-index: 1000;
+            font-size: 1.2rem; border: 2px solid white; z-index: 1000;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
         .enlace-web {
             position: absolute; bottom: calc(75px + env(safe-area-inset-bottom)); 
-            color: white; text-decoration: none; font-weight: bold; font-size: 0.8rem;
+            color: white; text-decoration: none; font-weight: bold; font-size: 0.85rem;
             text-shadow: 1px 1px 4px rgba(0,0,0,0.3); z-index: 100;
         }
 
@@ -108,14 +111,14 @@
         }
 
         .menu-inferior { 
-            position: absolute; bottom: calc(110px + env(safe-area-inset-bottom)); 
+            position: absolute; bottom: calc(115px + env(safe-area-inset-bottom)); 
             width: 100%; display: flex; flex-direction: column; align-items: center;
         }
 
         button { 
-            width: 80%; max-width: 280px; padding: 12px; margin: 4px 0; 
+            width: 85%; max-width: 300px; padding: 14px; margin: 6px 0; 
             background-color: var(--color-primario); color: white; 
-            font-size: 1rem; font-weight: 700; border: 2px solid white; 
+            font-size: 1.1rem; font-weight: 700; border: 2px solid white; 
             border-radius: 12px; text-transform: uppercase;
         }
     </style>
@@ -136,7 +139,7 @@
         <div class="cabecera-titulo"><h1 class="texto-sombra">SUDO44</h1></div>
         <div class="menu-inferior">
             <button onclick="iniciarJuego()">Iniciar Juego</button>
-            <select id="dificultad" style="width:80%; max-width:280px; padding:10px; border-radius:10px; margin-top:5px; font-weight:bold; border: 2px solid white; background: white;">
+            <select id="dificultad" style="width:85%; max-width:300px; padding:12px; border-radius:10px; margin-top:5px; font-weight:bold; border: 2px solid white; background: white;">
                 <option value="40">Nivel Fácil</option>
                 <option value="60">Nivel Medio</option>
                 <option value="80">Nivel Difícil</option>
@@ -150,15 +153,15 @@
         <div class="cabecera-titulo"><h1 class="texto-sombra">SUDO44</h1></div>
         
         <div class="instrucciones-juego">
-            <strong>REGLAS:</strong> Del <strong>1 al 20</strong> sin repetir. <br>Cada cuadrante de 2x2 debe <strong>sumar 44</strong>.
+            <strong>REGLAS:</strong> Utiliza los números del <strong>1 al 20</strong> que te sean útiles sin repetir. <br>Cada cuadrante de 2x2 debe <strong>sumar 44</strong>.
         </div>
 
         <div id="lista-numeros" class="contenedor-numeros"></div>
         <div id="tablero-contenedor"></div>
 
-        <div style="display:flex; gap:10px; width:90%; justify-content:center; margin-bottom: 110px;">
-            <button onclick="location.reload()" style="width:48%; font-size: 0.8rem; padding: 10px;">Menú</button>
-            <button onclick="limpiarUsuario()" style="width:48%; font-size: 0.8rem; padding: 10px;">Limpiar</button>
+        <div style="display:flex; gap:10px; width:90%; justify-content:center; margin-top: 10px;">
+            <button onclick="location.reload()" style="width:48%; font-size: 0.9rem; padding: 12px;">Menú</button>
+            <button onclick="limpiarUsuario()" style="width:48%; font-size: 0.9rem; padding: 12px;">Limpiar</button>
         </div>
 
         <a href="https://www.leonidasnamegomez.com" target="_blank" class="enlace-web">www.leonidasnamegomez.com</a>
@@ -180,7 +183,8 @@
 
         function iniciarMusica() {
             if (!musicaIniciada) {
-                document.getElementById('musicaFondo').play().catch(() => {});
+                const audio = document.getElementById('musicaFondo');
+                audio.play().catch(() => {});
                 musicaIniciada = true;
             }
         }
@@ -280,7 +284,7 @@
             let vals = Array.from(inputs).map(i => parseInt(i.value) || 0);
             const s = [vals[0]+vals[1]+vals[4]+vals[5], vals[2]+vals[3]+vals[6]+vals[7], vals[8]+vals[9]+vals[12]+vals[13], vals[10]+vals[11]+vals[14]+vals[15]];
             if (vals.every(v => v > 0) && s.every(x => x === 44) && new Set(vals).size === 16) {
-                alert("¡SUDO44 Completado!");
+                alert("¡SUDO44 Completado! Colombia gana con Leonidas Name.");
             }
         }
 
