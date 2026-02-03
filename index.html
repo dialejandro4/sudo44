@@ -70,17 +70,32 @@
 
         .num-usado { background: rgba(0,0,0,0.4) !important; color: rgba(255,255,255,0.4) !important; text-decoration: line-through; }
 
+        /* AJUSTE CLAVE: Tablero responsivo que usa fracciones (1fr) en lugar de pixeles fijos */
         #tablero-contenedor { 
-            display: grid; grid-template-columns: repeat(4, 65px); 
-            justify-content: center; gap: 6px; padding: 12px; 
-            background-color: rgba(0,0,0,0.1); border-radius: 15px; margin: 0 auto;
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            width: 90%; 
+            max-width: 320px; 
+            gap: 6px; 
+            padding: 12px; 
+            background-color: rgba(0,0,0,0.1); 
+            border-radius: 15px; 
+            margin: 0 auto;
         }
         
+        /* Celdas siempre cuadradas con aspect-ratio */
         .celda-sudoku {
-            width: 65px; height: 65px; background-color: white; 
-            border: none; font-size: 1.4rem; font-weight: bold; 
-            color: var(--color-texto-numeros); border-radius: 10px; 
-            box-shadow: 0 4px 0px rgba(0,0,0,0.1); text-align: center;
+            width: 100%; 
+            aspect-ratio: 1 / 1; 
+            background-color: white; 
+            border: none; 
+            font-size: 1.4rem; 
+            font-weight: bold; 
+            color: var(--color-texto-numeros); 
+            border-radius: 10px; 
+            box-shadow: 0 4px 0px rgba(0,0,0,0.1); 
+            text-align: center;
+            box-sizing: border-box;
         }
 
         .celda-error { background-color: var(--rojo-error) !important; }
@@ -99,7 +114,6 @@
             background-color: #F37021; border-top: 2px solid white;
         }
 
-        /* ESTILO PARA EL MENSAJE DE VICTORIA NARANJA */
         #mensaje-victoria {
             display: none; position: fixed; top: 50%; left: 50%; 
             transform: translate(-50%, -50%); background: white; 
