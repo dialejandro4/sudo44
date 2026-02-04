@@ -70,7 +70,6 @@
 
         .num-usado { background: rgba(0,0,0,0.4) !important; color: rgba(255,255,255,0.4) !important; text-decoration: line-through; }
 
-        /* AJUSTE CLAVE: Tablero responsivo que usa fracciones (1fr) en lugar de pixeles fijos */
         #tablero-contenedor { 
             display: grid; 
             grid-template-columns: repeat(4, 1fr); 
@@ -83,7 +82,6 @@
             margin: 0 auto;
         }
         
-        /* Celdas siempre cuadradas con aspect-ratio */
         .celda-sudoku {
             width: 100%; 
             aspect-ratio: 1 / 1; 
@@ -131,18 +129,17 @@
             font-size: 1.1rem; font-weight: 700; border: 2px solid white; 
             border-radius: 12px; text-transform: uppercase;
         }
-
-        #btn-compartir {
-            position: fixed; top: 15px; right: 15px; background: white; 
-            color: var(--color-primario); border-radius: 50%; width: 42px; height: 42px;
-            display: flex; align-items: center; justify-content: center; z-index: 1000;
+        
+        /* Estilo específico para botones secundarios dentro del área de juego */
+        .btn-secundario {
+            font-size: 0.85rem !important;
+            padding: 10px !important;
         }
     </style>
 </head>
 <body onclick="iniciarMusica()">
 
     <audio id="musicaFondo" loop><source src="Version 2 Final.mp3" type="audio/mpeg"></audio>
-    <div id="btn-compartir" onclick="compartirJuego()">🔗</div>
 
     <div id="mensaje-victoria">
         <h2>✨ ¡SUDOKU COMPLETADO! ✨</h2>
@@ -175,10 +172,15 @@
         </div>
         <div id="lista-numeros" class="contenedor-numeros"></div>
         <div id="tablero-contenedor"></div>
-        <div style="display:flex; gap:10px; width:90%; justify-content:center; margin-top: 10px;">
-            <button onclick="location.reload()" style="width:48%; font-size: 0.9rem;">Menú</button>
-            <button onclick="limpiarUsuario()" style="width:48%; font-size: 0.9rem;">Limpiar</button>
+        
+        <div style="display:flex; flex-direction: column; align-items: center; width:100%; margin-top: 10px;">
+            <div style="display:flex; gap:10px; width:90%; justify-content:center;">
+                <button onclick="location.reload()" class="btn-secundario" style="width:48%;">Menú</button>
+                <button onclick="limpiarUsuario()" class="btn-secundario" style="width:48%;">Limpiar</button>
+            </div>
+            <button onclick="compartirJuego()" class="btn-secundario" style="width:90%; margin-top: 8px;">COMPARTIR JUEGO</button>
         </div>
+
         <a href="https://www.leonidasnamegomez.com" target="_blank" class="enlace-web">www.leonidasnamegomez.com</a>
         <div class="banner-politico"></div>
     </div>
