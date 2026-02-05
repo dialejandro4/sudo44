@@ -84,10 +84,44 @@
 
         .num-usado { background: rgba(0,0,0,0.4) !important; color: rgba(255,255,255,0.4) !important; text-decoration: line-through; }
 
+        /* TABLERO CON LÍNEAS CONTINUAS */
         #tablero-contenedor { 
-            display: grid; grid-template-columns: repeat(4, 1fr); 
-            width: 88%; max-width: 300px; gap: 5px; padding: 10px; 
-            background-color: rgba(255,255,255,0.15); border-radius: 15px; margin: 0 auto;
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            width: 88%; 
+            max-width: 300px; 
+            gap: 5px; 
+            padding: 10px; 
+            background-color: rgba(255,255,255,0.15); 
+            border-radius: 15px; 
+            margin: 0 auto;
+            position: relative; /* Necesario para las líneas */
+        }
+
+        /* Línea Vertical Continua */
+        #tablero-contenedor::before {
+            content: "";
+            position: absolute;
+            top: 10px; bottom: 10px;
+            left: 50%;
+            width: 4px;
+            background-color: white;
+            transform: translateX(-50%);
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        /* Línea Horizontal Continua */
+        #tablero-contenedor::after {
+            content: "";
+            position: absolute;
+            left: 10px; right: 10px;
+            top: 50%;
+            height: 4px;
+            background-color: white;
+            transform: translateY(-50%);
+            z-index: 5;
+            pointer-events: none;
         }
         
         .celda-sudoku {
@@ -96,12 +130,12 @@
             color: var(--color-texto-numeros); border-radius: 8px; 
             text-align: center; box-sizing: border-box;
             -moz-appearance: textfield;
+            position: relative;
+            z-index: 1;
         }
         .celda-sudoku::-webkit-inner-spin-button, .celda-sudoku::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
 
         .celda-error { background-color: var(--rojo-error) !important; color: #d32f2f !important; }
-        .separador-c { border-right: 3px solid rgba(255,255,255,0.5); }
-        .separador-f { border-bottom: 3px solid rgba(255,255,255,0.5); }
 
         .enlace-web {
             position: absolute; bottom: calc(72px + env(safe-area-inset-bottom)); 
@@ -258,8 +292,7 @@
             for (let i = 0; i < 16; i++) {
                 const input = document.createElement('input');
                 input.type = 'number'; input.inputMode = "numeric"; input.className = 'celda-sudoku';
-                if (i % 4 === 1) input.classList.add('separador-c');
-                if (Math.floor(i / 4) === 1) input.classList.add('separador-f');
+                
                 if (ind.includes(i)) { 
                     input.value = tableroFinal[i]; 
                     input.readOnly = true; 
@@ -282,7 +315,6 @@
         function limpiarUsuario() { document.querySelectorAll('.celda-sudoku').forEach(i => { if(!i.readOnly) i.value = ''; }); actualizarUI(); }
         
         function compartirJuego() { 
-            // Usamos una URL base limpia para forzar la lectura de Meta Tags
             const url = "https://leonidasnamegomez.github.io/Sudo44/?v=orange_update"; 
             if (navigator.share) {
                 navigator.share({ 
