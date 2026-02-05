@@ -7,18 +7,18 @@
     
     <meta property="og:title" content="SUDO44 - El Reto Matemático">
     <meta property="og:description" content="¿Podrás resolver la suma perfecta? Ubica los números del 1 al 20 y haz que cada cuadrante sume 44.">
-    <meta property="og:image" content="https://leonidasnamegomez.github.io/Sudo44/miniatura.jpg">
-    <meta property="og:image:secure_url" content="https://leonidasnamegomez.github.io/Sudo44/miniatura.jpg">
+    <meta property="og:image" content="https://leonidasnamegomez.github.io/Sudo44/miniatura.jpg?v=2">
+    <meta property="og:image:secure_url" content="https://leonidasnamegomez.github.io/Sudo44/miniatura.jpg?v=2">
     <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:url" content="https://leonidasnamegomez.github.io/Sudo44/">
+    <meta property="og:url" content="https://leonidasnamegomez.github.io/Sudo44/index.html">
     <meta property="og:type" content="website">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="SUDO44 - Leonidas Name">
     <meta name="twitter:description" content="Demuestra tu agilidad mental con el reto SUDO44.">
-    <meta name="twitter:image" content="https://leonidasnamegomez.github.io/Sudo44/miniatura.jpg">
+    <meta name="twitter:image" content="https://leonidasnamegomez.github.io/Sudo44/miniatura.jpg?v=2">
 
     <style>
         :root {
@@ -281,8 +281,8 @@
         function limpiarUsuario() { document.querySelectorAll('.celda-sudoku').forEach(i => { if(!i.readOnly) i.value = ''; }); actualizarUI(); }
         
         function compartirJuego() { 
-            // Truco: Usar ?v=TIMESTAMP para que WhatsApp crea que es un enlace nuevo cada vez
-            const url = "https://leonidasnamegomez.github.io/Sudo44/?v=" + Date.now(); 
+            // Añadimos timestamp para que WhatsApp lo detecte como link nuevo cada vez
+            const url = "https://leonidasnamegomez.github.io/Sudo44/index.html?v=" + Date.now(); 
             if (navigator.share) {
                 navigator.share({ title: 'SUDO44', url: url });
             } else {
