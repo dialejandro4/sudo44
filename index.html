@@ -5,20 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>SUDO44 - Leonidas Name</title>
     
+    <meta property="fb:app_id" content="966242223397117" />
+    <meta property="og:type" content="website">
     <meta property="og:title" content="SUDO44 - El Reto Matemático">
-    <meta property="og:description" content="¿Podrás resolver la suma perfecta? Ubica los números del 1 al 20 y haz que cada cuadrante sume 44.">
-    <meta property="og:image" content="https://leonidasnamegomez.github.io/Sudo44/miniatura.jpg?v=2">
-    <meta property="og:image:secure_url" content="https://leonidasnamegomez.github.io/Sudo44/miniatura.jpg?v=2">
+    <meta property="og:description" content="¿Podrás resolver la suma perfecta? Haz que cada cuadrante sume 44.">
+    <meta property="og:url" content="https://leonidasnamegomez.github.io/Sudo44/">
+    
+    <meta property="og:image" content="https://leonidasnamegomez.github.io/Sudo44/miniatura.jpg?v=orange_final">
+    <meta property="og:image:secure_url" content="https://leonidasnamegomez.github.io/Sudo44/miniatura.jpg?v=orange_final">
     <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:url" content="https://leonidasnamegomez.github.io/Sudo44/index.html">
-    <meta property="og:type" content="website">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="SUDO44 - Leonidas Name">
-    <meta name="twitter:description" content="Demuestra tu agilidad mental con el reto SUDO44.">
-    <meta name="twitter:image" content="https://leonidasnamegomez.github.io/Sudo44/miniatura.jpg?v=2">
+    <meta name="twitter:image" content="https://leonidasnamegomez.github.io/Sudo44/miniatura.jpg?v=orange_final">
 
     <style>
         :root {
@@ -281,12 +282,17 @@
         function limpiarUsuario() { document.querySelectorAll('.celda-sudoku').forEach(i => { if(!i.readOnly) i.value = ''; }); actualizarUI(); }
         
         function compartirJuego() { 
-            // Añadimos timestamp para que WhatsApp lo detecte como link nuevo cada vez
-            const url = "https://leonidasnamegomez.github.io/Sudo44/index.html?v=" + Date.now(); 
+            // Usamos una URL base limpia para forzar la lectura de Meta Tags
+            const url = "https://leonidasnamegomez.github.io/Sudo44/?v=orange_update"; 
             if (navigator.share) {
-                navigator.share({ title: 'SUDO44', url: url });
+                navigator.share({ 
+                    title: 'SUDO44', 
+                    text: '¡Acepta el reto de Leonidas Name!',
+                    url: url 
+                });
             } else {
-                navigator.clipboard.writeText(url); alert("¡Enlace copiado!");
+                navigator.clipboard.writeText(url); 
+                alert("¡Enlace copiado! Pégalo en WhatsApp y espera 5 segundos antes de enviar.");
             }
         }
 
